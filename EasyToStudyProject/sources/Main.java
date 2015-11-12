@@ -5,12 +5,18 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    private static Stage stage;
+
     public void start(Stage primaryStage) {
-        StartWindow startPage = new StartWindow(primaryStage);
+        stage  = primaryStage;
+        new StartWindow();
     }
 
     public static void main(String[] args)
     {
         launch(args);
+    }
+    public static Stage getStage() {
+        return stage;
     }
 }
