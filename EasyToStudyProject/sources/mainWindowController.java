@@ -7,9 +7,11 @@ import javafx.event.ActionEvent;
  */
 public class mainWindowController {
     public void onAdd(ActionEvent actionEvent) {
+        ManageInfo manageInfo = new ManageInfo(false);
     }
 
     public void onEdit(ActionEvent actionEvent) {
+        ManageInfo manageInfo = new ManageInfo(true);
     }
 
     public void onExit(ActionEvent actionEvent) {

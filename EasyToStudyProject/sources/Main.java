@@ -7,6 +7,7 @@ public class Main extends Application {
 
     private static Stage stage;
 
+
     public void start(Stage primaryStage) {
         stage  = primaryStage;
         new StartWindow();

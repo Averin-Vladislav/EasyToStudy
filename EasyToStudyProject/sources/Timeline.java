@@ -3,20 +3,27 @@ package sample;
 import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  * Created by Владислав on 12.11.2015.
  */
 public class Timeline {
     private static Timeline instance;
-    private static ArrayList<TimelineButton> timelineButtonList;
-    private static HBox timeLine;
-    private static Date date;
+    private ArrayList<TimelineButton> timelineButtonList;
+    private HBox timeLine;
+    private EventDate startDate;
+    private EventDate endDate;
 
     private Timeline() {
         timeLine = new HBox();
-        date = new Date();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().get(Calendar.DAY_OF_MONTH) - 3);
+        startDate = new EventDate(calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
+
+        calendar.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + 27);
+        endDate = new EventDate(calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
 
         timelineButtonList = new ArrayList<>();
         for(int i = 0; i < 30; i++) {
@@ -32,7 +39,59 @@ public class Timeline {
         return instance;
     }
 
-    protected static HBox getTimeLine() {
+    protected HBox getTimeLine() {
         return timeLine;
+    }
+
+    protected void synchronize(){
+        for(TimelineButton temp: timelineButtonList) {
+            temp.initializeTooltip();
+        }
+
+        ArrayList<Note> noteList = DataLists.getInstance().getNoteList();
+        for(Note note: noteList) {
+            TimelineButton timelineButton = getButtonInInterval(note.getEventDate());
+            if (timelineButton != null) {
+                timelineButton.addInfoToTooltip("\nNote:\n\t" + note.getInfo());
+            }
+        }
+
+        ArrayList<Subject> subjectList = DataLists.getInstance().getSubjectList();
+        for(Subject subject: subjectList) {
+            for(EventDate eventDate: subject.getAbsenceList()) {
+                TimelineButton timelineButton = getButtonInInterval(eventDate);
+                if (timelineButton != null) {
+                    timelineButton.addInfoToTooltip("\nAbsence:\n\t" + subject.getName());
+                }
+            }
+        }
+
+        for(Subject subject: subjectList) {
+            for(LabWork labWork: subject.getLabList()) {
+                TimelineButton timelineButton = getButtonInInterval(labWork.getDeadLineDate());
+                if (timelineButton != null) {
+                    timelineButton.addInfoToTooltip("\nDeadline:\n\t" + subject.getName());
+                }
+            }
+        }
+
+        for(Subject subject: subjectList) {
+            for(LabWork labWork: subject.getLabList()) {
+                TimelineButton timelineButton = getButtonInInterval(labWork.getPassDate());
+                if (timelineButton != null) {
+                    timelineButton.addInfoToTooltip("\nPassed:\n\t" + subject.getName());
+                }
+            }
+        }
+    }
+
+    private TimelineButton getButtonInInterval(EventDate eventDate){
+        if (eventDate.moreEqualThan(startDate) && eventDate.lessThan(endDate)) {
+            for (TimelineButton button : timelineButtonList) {
+                if (button.getTimelineButtonDate().equal(eventDate))
+                    return button;
+            }
+        }
+        return null;
     }
 }

@@ -1,34 +1,41 @@
 package sample;
 
+import java.util.Objects;
+
 /**
  * Created by Владислав on 12.11.2015.
  */
 public class EventDate {
-    private static int month;
-    private static int day;
+    private Integer month;
+    private Integer day;
 
-    EventDate(int _month, int _day) {
-        month = _month + 1;
+    EventDate(Integer _month, Integer _day) {
+        month = _month;
         day = _day;
     }
 
-    public static int getMonth() {
+    public int getMonth() {
         return month;
     }
 
-    public static int getDay() {
+    public int getDay() {
         return day;
     }
 
-    public static void setMonth(int _month) {
+    public void setMonth(Integer _month) {
         month = _month;
     }
 
-    public static void setDay(int _day) {
+    public void setDay(Integer _day) {
         day = _day;
     }
 
-    public static String getInfo() {
+    public void setDate(Integer _month, Integer _day) {
+        month = _month;
+        day = _day;
+    }
+
+    public String getInfo() {
         String info = "";
 
         switch (month)
@@ -64,6 +71,14 @@ public class EventDate {
     }
 
     public boolean equal(EventDate eventDate) {
-        return (this.month == eventDate.month) && (this.day == eventDate.day) ? true : false;
+        return (Objects.equals(this.month, eventDate.month)) && (Objects.equals(this.day, eventDate.day));
+    }
+
+    public boolean moreEqualThan(EventDate eventDate) {
+        return (this.month > eventDate.month) || ((Objects.equals(this.month, eventDate.month)) && (this.day >= eventDate.day));
+    }
+
+    public boolean lessThan(EventDate eventDate) {
+        return (this.month < eventDate.month) || ((Objects.equals(this.month, eventDate.month)) && (this.day < eventDate.day));
     }
 }
