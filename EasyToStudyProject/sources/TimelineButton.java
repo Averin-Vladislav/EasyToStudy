@@ -12,6 +12,7 @@ public class TimelineButton {
     private EventDate eventDate;
     private Button dayButton;
     private Tooltip tooltip;
+	private boolean isInfoSet;
 
     TimelineButton(Integer number) {
         Calendar calendar = Calendar.getInstance();
@@ -45,4 +46,12 @@ public class TimelineButton {
     public String getTooltipText() {
         return tooltip.getText();
     }
+
+	public void setInfoSet(boolean value) {
+		isInfoSet = value;
+	}
+
+	public boolean isInfoSet() {
+		return isInfoSet;
+	} 
 }
