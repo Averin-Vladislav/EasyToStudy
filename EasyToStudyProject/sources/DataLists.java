@@ -29,7 +29,7 @@ public class DataLists {
         while(inNote.hasNext()) {
             String str;
             str = inNote.nextLine();
-            if (str.length() < 2)
+            if(Objects.equals(str, ""))
                 break;
             Integer month = Integer.parseInt(String.valueOf(str.charAt(3)) + String.valueOf(str.charAt(4)));
             Integer day = Integer.parseInt(String.valueOf(str.charAt(0)) + String.valueOf(str.charAt(1)));
@@ -120,7 +120,7 @@ public class DataLists {
 
         for(Subject subject: subjectArrayList) {
             for(LabWork labWork: subject.getLabList()) {
-                if((labWork.getPassDate().moreEqualThan(labWorkRecent1.getPassDate())) && (labWork.getMark() != "-")) {
+                if(labWork.getPassDate().moreEqualThan(labWorkRecent1.getPassDate())) {
                     labWorkRecent1 = labWork;
                     labWorkRecentName1 = subject.getName();
                     if(labWorkRecent1.getPassDate().moreEqualThan(labWorkRecent2.getPassDate())) {
@@ -138,10 +138,9 @@ public class DataLists {
                 }
             }
         }
-        if (!labWorkRecent2.getPassDate().equal(new EventDate(0 ,0)))
-            statisticsInfoList.add(new StatisticsInfo(labWorkRecentName2, Integer.toString(labWorkRecent2.getNumber()), labWorkRecent2.getMark()));
-        if (!labWorkRecent1.getPassDate().equal(new EventDate(0 ,0)))
-            statisticsInfoList.add(new StatisticsInfo(labWorkRecentName1, Integer.toString(labWorkRecent1.getNumber()), labWorkRecent1.getMark()));
+
+        statisticsInfoList.add(new StatisticsInfo(labWorkRecentName2, Integer.toString(labWorkRecent2.getNumber()), labWorkRecent2.getMark()));
+        statisticsInfoList.add(new StatisticsInfo(labWorkRecentName1, Integer.toString(labWorkRecent1.getNumber()), labWorkRecent1.getMark()));
         return statisticsInfoList;
     }
 

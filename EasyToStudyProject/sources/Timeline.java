@@ -16,8 +16,6 @@ public class Timeline {
     private EventDate endDate;
 
     private Timeline() {
-
-
         timeLine = new HBox();
 
         Calendar calendar = Calendar.getInstance();
@@ -48,9 +46,6 @@ public class Timeline {
     protected void synchronize(){
         for(TimelineButton temp: timelineButtonList) {
             temp.initializeTooltip();
-			temp.setInfoSet(false);
-            while(temp.getDayButton().getStyleClass().size() > 1)
-                temp.getDayButton().getStyleClass().remove(temp.getDayButton().getStyleClass().size() - 1);
         }
 
         ArrayList<Note> noteList = DataLists.getInstance().getNoteList();
@@ -58,13 +53,6 @@ public class Timeline {
             TimelineButton timelineButton = getButtonInInterval(note.getEventDate());
             if (timelineButton != null) {
                 timelineButton.addInfoToTooltip("\nNote:\n\t" + note.getInfo());
-				if(timelineButton.isInfoSet()) {
-					timelineButton.getDayButton().getStyleClass().add("infoSetButton");
-				}
-				else {
-                    timelineButton.getDayButton().getStyleClass().add("noteDayButton");
-                    timelineButton.setInfoSet(true);
-                }
             }
         }
 
@@ -74,13 +62,6 @@ public class Timeline {
                 TimelineButton timelineButton = getButtonInInterval(eventDate);
                 if (timelineButton != null) {
                     timelineButton.addInfoToTooltip("\nAbsence:\n\t" + subject.getName());
-					if(timelineButton.isInfoSet()) {
-						timelineButton.getDayButton().getStyleClass().add("infoSetButton");
-					}
-					else {
-                        timelineButton.getDayButton().getStyleClass().add("absenceDayButton");
-                        timelineButton.setInfoSet(true);
-                    }
                 }
             }
         }
@@ -90,13 +71,6 @@ public class Timeline {
                 TimelineButton timelineButton = getButtonInInterval(labWork.getDeadLineDate());
                 if (timelineButton != null) {
                     timelineButton.addInfoToTooltip("\nDeadline:\n\t" + subject.getName());
-					if(timelineButton.isInfoSet()) {
-						timelineButton.getDayButton().getStyleClass().add("infoSetButton");
-					}
-					else {
-						timelineButton.getDayButton().getStyleClass().add("deadlineDayButton");
-                        timelineButton.setInfoSet(true);
-                    }
                 }
             }
         }
@@ -106,13 +80,6 @@ public class Timeline {
                 TimelineButton timelineButton = getButtonInInterval(labWork.getPassDate());
                 if (timelineButton != null) {
                     timelineButton.addInfoToTooltip("\nPassed:\n\t" + subject.getName());
-					if(timelineButton.isInfoSet()) {
-						timelineButton.getDayButton().getStyleClass().add("infoSetButton");
-					}
-					else {
-                        timelineButton.getDayButton().getStyleClass().add("passedDayButton");
-                        timelineButton.setInfoSet(true);
-                    }
                 }
             }
         }

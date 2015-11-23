@@ -49,21 +49,15 @@ public class Subject {
             return;
         }
         for (LabWork temp : labList) {
-            if (inMarks.hasNext()) {
-                String str;
-                str = inMarks.nextLine();
-                if (str.length() < 2)
-                    break;
-                temp.setDeadLineDate(new EventDate(Integer.parseInt(String.valueOf(str.charAt(3)) + String.valueOf(str.charAt(4))),
-                        Integer.parseInt(String.valueOf(str.charAt(0) + String.valueOf(str.charAt(1))))));
-                temp.setPassDate(new EventDate(Integer.parseInt(String.valueOf(str.charAt(9)) + String.valueOf(str.charAt(10))),
-                        Integer.parseInt(String.valueOf(str.charAt(6) + String.valueOf(str.charAt(7))))));
-                temp.setMark(str.substring(12));
-            } else {
-                temp.setMark("-");
-                temp.setPassDate(new EventDate(0, 0));
-                temp.setDeadLineDate(new EventDate(0, 0));
-            }
+            String str;
+            str = inMarks.nextLine();
+            if(Objects.equals(str, ""))
+                break;
+            temp.setDeadLineDate(new EventDate(Integer.parseInt(String.valueOf(str.charAt(3)) + String.valueOf(str.charAt(4))),
+                                               Integer.parseInt(String.valueOf(str.charAt(0) + String.valueOf(str.charAt(1))))));
+            temp.setPassDate(new EventDate(Integer.parseInt(String.valueOf(str.charAt(9)) + String.valueOf(str.charAt(10))),
+                                           Integer.parseInt(String.valueOf(str.charAt(6) + String.valueOf(str.charAt(7))))));
+            temp.setMark(str.substring(12));
         }
         inMarks.close();
     }

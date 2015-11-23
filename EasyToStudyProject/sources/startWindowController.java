@@ -7,6 +7,5 @@ public class startWindowController {
         MainWindow.getInstance().show();
         DataLists.getInstance();
         Timeline.getInstance().synchronize();
-        DataLists.getInstance().synchronizeWithFile();
     }
 }

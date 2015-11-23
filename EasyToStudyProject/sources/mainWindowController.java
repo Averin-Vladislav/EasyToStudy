@@ -20,6 +20,5 @@ public class mainWindowController {
 
     public void onStatistics(ActionEvent actionEvent) {
         StatisticsWindow.getInstance().show();
-        StatisticsWindow.getInstance().initAbsenceTable();
     }
 }
