@@ -1,0 +1,32 @@
+.dayButton
+{
+	-fx-background-color: #DFE6E8;
+	-fx-border-width: 1px ;
+	-fx-border-radius: 0;
+	-fx-background-radius: 0;
+	-fx-border-color: #000;
+}
+
+.dayButton:hover {
+    -fx-background-color: #FAF7A0;
+}
+
+.noteDayButton {
+    -fx-background-color: #83D1EB;
+}
+
+.absenceDayButton {
+    -fx-background-color: #FC6568;
+}
+
+.deadlineDayButton {
+    -fx-background-color: #FF9830;
+}
+
+.passedDayButton {
+    -fx-background-color: #65FC83;
+}
+
+.infoSetButton {
+    -fx-background-color: #E3ED87;
+}

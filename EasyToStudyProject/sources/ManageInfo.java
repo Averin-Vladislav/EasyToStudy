@@ -125,8 +125,10 @@ public class ManageInfo {
                         if (comboBox1.getValue() != null) {
                             vBox = cutVBox(vBox, 2, 3);
                             TextField dayTextField = new TextField();
+                            dayTextField.setPromptText("Enter day");
                             dayTextField.setPrefWidth(50);
                             TextField monthTextField = new TextField();
+                            monthTextField.setPromptText("Enter month");
                             if (isEditInfo) {
                                 if (DataLists.getInstance().getLabList(comboBox.getValue()).get(comboBox1.getValue() - 1).getDeadLineDate().getDay() != 0) {
                                     dayTextField.setText(Integer.toString(DataLists.getInstance().getLabList(comboBox.getValue()).get(comboBox1.getValue() - 1).getDeadLineDate().getDay()));
@@ -145,7 +147,8 @@ public class ManageInfo {
                                     monthTextField.setText("Already has deadline");
                                     dayTextField.setDisable(true);
                                     monthTextField.setDisable(true);
-                                }
+                                } else
+                                    applyButton.setDisable(false);
                             }
                             monthTextField.setPrefWidth(50);
                             vBox.getChildren().addAll(dayTextField, monthTextField);
@@ -186,10 +189,13 @@ public class ManageInfo {
                         if (comboBox1.getValue() != null) {
                             vBox = cutVBox(vBox, 2, 4);
                             TextField markTextField = new TextField();
+                            markTextField.setPromptText("Enter mark");
                             markTextField.setPrefWidth(50);
                             TextField passDayTextField = new TextField();
+                            passDayTextField.setPromptText("Enter pass day");
                             passDayTextField.setPrefWidth(50);
                             TextField passMonthTextField = new TextField();
+                            passMonthTextField.setPromptText("Enter pass month");
                             passMonthTextField.setPrefWidth(50);
                             if (isEditInfo) {
                                 if (DataLists.getInstance().getLabList(comboBox.getValue()).get(comboBox1.getValue() - 1).getPassDate().getDay() != 0) {
@@ -205,7 +211,6 @@ public class ManageInfo {
                                     passMonthTextField.setDisable(true);
                                     markTextField.setDisable(true);
                                 }
-                                applyButton.setDisable(false);
                             } else {
                                 if (DataLists.getInstance().getLabList(comboBox.getValue()).get(comboBox1.getValue() - 1).getPassDate().getDay() != 0) {
                                     passDayTextField.setText("Already has mark");
@@ -214,7 +219,8 @@ public class ManageInfo {
                                     passDayTextField.setDisable(true);
                                     passMonthTextField.setDisable(true);
                                     markTextField.setDisable(true);
-                                }
+                                } else
+                                    applyButton.setDisable(false);
                             }
                             vBox.getChildren().addAll(passDayTextField, passMonthTextField, markTextField);
                             applyButton.setOnAction(event3 -> {
