@@ -81,4 +81,31 @@ public class EventDate {
     public boolean lessThan(EventDate eventDate) {
         return (this.month < eventDate.month) || ((Objects.equals(this.month, eventDate.month)) && (this.day < eventDate.day));
     }
+
+    public boolean isCorrect() {
+        if (month >= 1 && month <= 12) {
+            switch (month) {
+                case 1:
+                case 3:
+                case 5:
+                case 7:
+                case 8:
+                case 10:
+                case 12:
+                    if (day <= 0 || day > 31) return false;
+                    break;
+                case 4:
+                case 6:
+                case 9:
+                case 11:
+                    if (day <= 0 || day > 30) return false;
+                    break;
+                case 2:
+                    if (day <= 0 || day > 28) return false;
+                    break;
+            }
+        } else
+            return false;
+        return true;
+    }
 }

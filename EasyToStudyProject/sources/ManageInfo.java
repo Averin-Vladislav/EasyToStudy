@@ -92,11 +92,23 @@ public class ManageInfo {
                 noteTextArea.setPrefHeight(100);
                 vBox.getChildren().addAll(dayTextField, monthTextField, noteTextArea);
                 applyButton.setOnAction(event2 -> {
-                    DataLists.getInstance().getNoteList().add(new Note(new EventDate(Integer.parseInt(monthTextField.getText()), Integer.parseInt((dayTextField.getText()))), noteTextArea.getText()));
-                    Timeline.getInstance().synchronize();
-                    MainWindow.getInstance().synchronize();
-                    DataLists.getInstance().synchronizeWithFile();
-                    stage.close();
+                    try {
+                        EventDate date = new EventDate(Integer.parseInt(monthTextField.getText()), Integer.parseInt((dayTextField.getText())));
+                        if (date.isCorrect()) {
+                            DataLists.getInstance().getNoteList().add(new Note(date, noteTextArea.getText()));
+                            Timeline.getInstance().synchronize();
+                            MainWindow.getInstance().synchronize();
+                            DataLists.getInstance().synchronizeWithFile();
+                            stage.close();
+                        } else {
+                            throw new Exception();
+                        }
+                    }
+                    catch (Exception e) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setContentText("Incorrect entries");
+                        alert.showAndWait();
+                    }
                 });
                 applyButton.setDisable(false);
             }
@@ -153,17 +165,28 @@ public class ManageInfo {
                             monthTextField.setPrefWidth(50);
                             vBox.getChildren().addAll(dayTextField, monthTextField);
                             applyButton.setOnAction(event3 -> {
-                                DataLists.getInstance().getLabList(comboBox.getValue()).get(comboBox1.getValue() - 1).getDeadLineDate().setDate(Integer.parseInt(monthTextField.getText()), Integer.parseInt(dayTextField.getText()));
-                                Timeline.getInstance().synchronize();
-                                MainWindow.getInstance().synchronize();
-                                DataLists.getInstance().synchronizeWithFile();
-                                stage.close();
+                                try {
+                                    EventDate date = new EventDate(Integer.parseInt(monthTextField.getText()), Integer.parseInt((dayTextField.getText())));
+                                    if (date.isCorrect()) {
+                                        DataLists.getInstance().getLabList(comboBox.getValue()).get(comboBox1.getValue() - 1).getDeadLineDate().setDate(Integer.parseInt(monthTextField.getText()), Integer.parseInt(dayTextField.getText()));
+                                        Timeline.getInstance().synchronize();
+                                        MainWindow.getInstance().synchronize();
+                                        DataLists.getInstance().synchronizeWithFile();
+                                        stage.close();
+                                    } else {
+                                        throw new Exception();
+                                    }
+                                }
+                                catch (Exception e) {
+                                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                                    alert.setContentText("Incorrect entries");
+                                    alert.showAndWait();
+                                }
                             });
                         }
                     });
                 }
             });
-
         });
 
 
@@ -224,12 +247,24 @@ public class ManageInfo {
                             }
                             vBox.getChildren().addAll(passDayTextField, passMonthTextField, markTextField);
                             applyButton.setOnAction(event3 -> {
-                                DataLists.getInstance().getLabList(comboBox.getValue()).get(comboBox1.getValue() - 1).getPassDate().setDate(Integer.parseInt(passMonthTextField.getText()), Integer.parseInt(passDayTextField.getText()));
-                                DataLists.getInstance().getLabList(comboBox.getValue()).get(comboBox1.getValue() - 1).setMark(markTextField.getText());
-                                Timeline.getInstance().synchronize();
-                                MainWindow.getInstance().synchronize();
-                                DataLists.getInstance().synchronizeWithFile();
-                                stage.close();
+                                try {
+                                    EventDate date = new EventDate(Integer.parseInt(passMonthTextField.getText()), Integer.parseInt((passDayTextField.getText())));
+                                    if (date.isCorrect()) {
+                                        DataLists.getInstance().getLabList(comboBox.getValue()).get(comboBox1.getValue() - 1).getPassDate().setDate(Integer.parseInt(passMonthTextField.getText()), Integer.parseInt(passDayTextField.getText()));
+                                        DataLists.getInstance().getLabList(comboBox.getValue()).get(comboBox1.getValue() - 1).setMark(markTextField.getText());
+                                        Timeline.getInstance().synchronize();
+                                        MainWindow.getInstance().synchronize();
+                                        DataLists.getInstance().synchronizeWithFile();
+                                        stage.close();
+                                    } else {
+                                        throw new Exception();
+                                    }
+                                }
+                                catch (Exception e) {
+                                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                                    alert.setContentText("Incorrect entries");
+                                    alert.showAndWait();
+                                }
                             });
                         }
                     });
@@ -270,11 +305,23 @@ public class ManageInfo {
                                         final int finalI = i;
                                         applyButton.setDisable(false);
                                         applyButton.setOnAction(event3 -> {
-                                            DataLists.getInstance().getAbsenceList(comboBox.getValue()).get(finalI).setDate(Integer.parseInt(absenceMonthTextField.getText()), Integer.parseInt(absenceDayTextField.getText()));
-                                            Timeline.getInstance().synchronize();
-                                            MainWindow.getInstance().synchronize();
-                                            DataLists.getInstance().synchronizeWithFile();
-                                            stage.close();
+                                            try {
+                                                EventDate date = new EventDate(Integer.parseInt(absenceMonthTextField.getText()), Integer.parseInt((absenceDayTextField.getText())));
+                                                if (date.isCorrect()) {
+                                                    DataLists.getInstance().getAbsenceList(comboBox.getValue()).get(finalI).setDate(Integer.parseInt(absenceMonthTextField.getText()), Integer.parseInt(absenceDayTextField.getText()));
+                                                    Timeline.getInstance().synchronize();
+                                                    MainWindow.getInstance().synchronize();
+                                                    DataLists.getInstance().synchronizeWithFile();
+                                                    stage.close();
+                                                } else {
+                                                    throw new Exception();
+                                                }
+                                            }
+                                            catch (Exception e) {
+                                                Alert alert = new Alert(Alert.AlertType.ERROR);
+                                                alert.setContentText("Incorrect entries");
+                                                alert.showAndWait();
+                                            }
                                         });
                                     }
                                 }
@@ -296,11 +343,23 @@ public class ManageInfo {
                         vBox.getChildren().addAll(absenceDayTextField, absenceMonthTextField);
                         applyButton.setDisable(false);
                         applyButton.setOnAction(event3 -> {
-                            DataLists.getInstance().getAbsenceList(comboBox.getValue()).add(new EventDate(Integer.parseInt(absenceMonthTextField.getText()), Integer.parseInt(absenceDayTextField.getText())));
-                            Timeline.getInstance().synchronize();
-                            MainWindow.getInstance().synchronize();
-                            DataLists.getInstance().synchronizeWithFile();
-                            stage.close();
+                            try {
+                                EventDate date = new EventDate(Integer.parseInt(absenceMonthTextField.getText()), Integer.parseInt((absenceDayTextField.getText())));
+                                if (date.isCorrect()) {
+                                    DataLists.getInstance().getAbsenceList(comboBox.getValue()).add(new EventDate(Integer.parseInt(absenceMonthTextField.getText()), Integer.parseInt(absenceDayTextField.getText())));
+                                    Timeline.getInstance().synchronize();
+                                    MainWindow.getInstance().synchronize();
+                                    DataLists.getInstance().synchronizeWithFile();
+                                    stage.close();
+                                } else {
+                                    throw new Exception();
+                                }
+                            }
+                            catch (Exception e) {
+                                Alert alert = new Alert(Alert.AlertType.ERROR);
+                                alert.setContentText("Incorrect entries");
+                                alert.showAndWait();
+                            }
                         });
                     }
                 });
